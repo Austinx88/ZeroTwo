@@ -2,6 +2,7 @@ import asyncio
 import time
 import discord
 import os
+import json
 
 from discord.ext import commands
 from utils import default
@@ -19,6 +20,25 @@ class Shop(commands.Cog):
 
         mag = self.bot.server_data.get_energy(str(ctx.message.guild.id), str(ctx.message.author.id))
         await ctx.send(f"{ctx.message.author.name}'s magma energy: **{mag}**" + self.config.mag_emoji)
+
+    @commands.command(aliases = ["leaderboard"])
+    @commands.guild_only()
+    async def rank(self,ctx):
+        "Displays your ranking of how much magma you have compared to others"
+        file = open('serverdata.json')
+        data = json.load(file)
+        server = str(ctx.message.guild.id)
+        selfmag = self.bot.server_data.get_energy(str(ctx.message.guild.id), str(ctx.message.author.id))
+        rank = 1
+        for i in data['servers'][server]['users']:
+            if data['servers'][server]['users'][i]['energy'] > selfmag:
+                rank += 1
+        if (rank == 1):
+            await ctx.send("You have the most mag in the server. ")
+        else:
+            await ctx.send("You have the " + str(rank) + " most mag in this server")
+
+        file.close()
 
     async def purchase(self, ctx):
         user = ctx.message.author
