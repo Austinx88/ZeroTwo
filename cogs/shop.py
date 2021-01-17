@@ -28,15 +28,15 @@ class Shop(commands.Cog):
         file = open('serverdata.json')
         data = json.load(file)
         server = str(ctx.message.guild.id)
-        selfmag = self.bot.server_data.get_energy(str(ctx.message.guild.id), str(ctx.message.author.id))
+        selfmag = self.bot.server_data.get_xp(str(ctx.message.guild.id), str(ctx.message.author.id))
         rank = 1
-        for i in data['servers'][server]['users']:
-            if data['servers'][server]['users'][i]['energy'] > selfmag:
+        for i in data['servers'][server]['ranks']:
+            if data['servers'][server]['ranks'][i]['xp'] > selfmag:
                 rank += 1
-        if (rank == 1):
-            await ctx.send("You have the most mag in the server. ")
+        if rank == 1:
+            await ctx.send("You have made the most mag in this server :crown: ")
         else:
-            await ctx.send("You have the " + str(rank) + " most mag in this server")
+            await ctx.send("Your all time mag rank is " + str(rank))
 
         file.close()
 
