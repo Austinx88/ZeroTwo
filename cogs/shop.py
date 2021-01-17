@@ -30,8 +30,8 @@ class Shop(commands.Cog):
         server = str(ctx.message.guild.id)
         selfmag = self.bot.server_data.get_xp(str(ctx.message.guild.id), str(ctx.message.author.id))
         rank = 1
-        for i in data['servers'][server]['ranks']:
-            if data['servers'][server]['ranks'][i]['xp'] > selfmag:
+        for i in data['servers'][server]['users']:
+            if data['servers'][server]['users'][i]['xp'] > selfmag:
                 rank += 1
         if rank == 1:
             await ctx.send("You have made the most mag in this server :crown: ")
