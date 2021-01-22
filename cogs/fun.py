@@ -95,7 +95,6 @@ class Fun_Commands(commands.Cog):
             return
         await channel.edit(name=NewName)
         await ctx.send("Channel name has been changed to " + NewName + " for " + str(hours) + " hours")
-        await asyncio.sleep(60)
         await asyncio.sleep(seconds)
         await channel.edit(name=oldname)
 
