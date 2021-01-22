@@ -78,6 +78,28 @@ class Fun_Commands(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    async def renamec(self, ctx,NewName):
+        "Lets you name the current channel to whatever you want for 1 hour"
+
+        channel: discord.TextChannel
+        channel = ctx.message.channel
+        oldname = ctx.message.channel
+        hours = 24
+        seconds = hours*3600
+
+
+        shop = self.bot.get_cog('Shop')
+        purchased = await shop.purchase(ctx)
+
+        if not purchased:
+            return
+        await channel.edit(name=NewName)
+        await ctx.send("Channel name has been changed to " + NewName + " for " + str(hours) + " hours")
+        await asyncio.sleep(60)
+        await channel.edit(name=oldname)
+
+    @commands.command()
+    @commands.guild_only()
     async def scramble(self, ctx, channel: discord.TextChannel = None, member: Member = None):
         """ Scrambles a random message from the channel's content """
 
