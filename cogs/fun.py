@@ -78,7 +78,8 @@ class Fun_Commands(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    async def renamec(self, ctx,NewName):
+    @commands.cooldown(1,600,commands.BucketType.channel)
+    async def renamechannel(self, ctx,*,NewName):
         "Lets you name the current channel to whatever you want for 1 hour"
 
         channel: discord.TextChannel
