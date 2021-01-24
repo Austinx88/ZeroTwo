@@ -93,6 +93,7 @@ class Fun_Commands(commands.Cog):
         purchased = await shop.purchase(ctx)
 
         if not purchased:
+            ctx.command.reset_cooldown(ctx)
             return
         await channel.edit(name=NewName)
         await ctx.send("Channel name has been changed to " + NewName + " for " + str(hours) + " hours")
